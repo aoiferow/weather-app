@@ -26,6 +26,8 @@ li {
   margin: 0;
   padding: 0;
   font-size: 20px;
+}
+li:first-letter {
   text-transform: capitalize;
 }
 .weather-temp i {
