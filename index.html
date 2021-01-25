@@ -19,14 +19,14 @@
         <div class="weather-app">
 <div class="row">
     <div class="col-6">
-    <h1>
+    <h1 id = "city">
         New York
     </h1>
     <ul>
         <li>
             Friday 3pm
         </li>
-        <li>
+        <li id = "conditions">
             Clear
         </li>
         
@@ -36,7 +36,7 @@
     <div class="clearfix weather-temp">
     <ul>
         <div class="float-left">
-        <li> <strong>7</strong>
+        <li> <strong id = "temp">7</strong>
             <span class="units">
                  °c | <a href="">°f</a>
                 </li>
@@ -49,21 +49,25 @@
 </div>
 <div class="row">
     <div class="col-6">
-
+<ul>
+    <li>
+        Sunrise: 
+    </li>
+    <li>
+        Sunset:
+    </li>
     </div>    
     
     <div class="col-6">
     <ul>
-    <li>
-        Precipitation: 35%
-    </li>
+     
         <li>
-            Humidity: 46 %
+            Humidity: <span id ="humidity">46 </span>%
         </li>
         <li>
-            Wind: 2 km/h
+            Wind: <span id="wind">2</span> km/h
         </li> 
-            
+        
     </ul> 
     </div>
 </div>  
