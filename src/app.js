@@ -20,12 +20,8 @@ function formatDate (timestamp) {
     currentMinutes = `0${currentMinutes}`;
   }
     let currentDay = days[date.getDay()];
-    
-
-
 
   let formattedDate = `${currentDay} ${currentHour}:${currentMinutes}`;
-
   return formattedDate;
 }
 
@@ -35,16 +31,20 @@ function displayWeather(response) {
     let currentCond = document.querySelector("#conditions");
     let currentHumidity = document.querySelector("#humidity");
     let currentWind = document.querySelector("#wind");
+    let iconElement = document.querySelector("#icon");
     currentCity.innerHTML = response.data.name; 
     currentTemp.innerHTML = Math.round(response.data.main.temp);
     currentCond.innerHTML = response.data.weather[0].description;
     currentHumidity.innerHTML = response.data.main.humidity;
     currentWind.innerHTML = Math.round(response.data.wind.speed);
     timeDate.innerHTML = formatDate(response.data.dt * 1000).bold();
+    iconElement.setAttribute ( "src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`) 
+    iconElement.setAttribute ("alt", response.data.weather[0].description)
 }
 
 let apiKey = "26fb0e2935bcdd02eddacbda042238e7";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=New York&appid=${apiKey}&units=metric`;
+let city = "Boston"
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
 axios.get(apiUrl).then(displayWeather);
 
