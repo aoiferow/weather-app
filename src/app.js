@@ -26,6 +26,7 @@ function formatDate (timestamp) {
 }
 
 function displayWeather(response) {
+    console.log(response)
     let currentCity = document.querySelector("#city");
     let currentTemp = document.querySelector("#temp");
     let currentCond = document.querySelector("#conditions");
@@ -41,11 +42,16 @@ function displayWeather(response) {
     iconElement.setAttribute ( "src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`) 
     iconElement.setAttribute ("alt", response.data.weather[0].description)
 }
+function searchCity(city){
+    let apiKey = "26fb0e2935bcdd02eddacbda042238e7";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayWeather);  
+}
+function search(event){
+    event.preventDefault();
+    let city = document.querySelector("#location-input").value;
+  searchCity(city);
+}
 
-let apiKey = "26fb0e2935bcdd02eddacbda042238e7";
-let city = "Boston"
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-axios.get(apiUrl).then(displayWeather);
-
-
+let form = document.querySelector("#searchForm");
+form.addEventListener("submit", search)
