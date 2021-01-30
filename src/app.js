@@ -32,8 +32,11 @@ function displayWeather(response) {
     let currentHumidity = document.querySelector("#humidity");
     let currentWind = document.querySelector("#wind");
     let iconElement = document.querySelector("#icon");
+
+    let celsiusTemp = response.data.main.temp;
+
     currentCity.innerHTML = response.data.name; 
-    currentTemp.innerHTML = Math.round(response.data.main.temp);
+    currentTemp.innerHTML = Math.round(celsiusTemp);
     currentCond.innerHTML = response.data.weather[0].description;
     currentHumidity.innerHTML = response.data.main.humidity;
     currentWind.innerHTML = Math.round(response.data.wind.speed);
@@ -66,16 +69,17 @@ function getCurrentLocation(event) {
 function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temp");
-  let temperature = temperatureElement.innerHTML;
-  temperatureElement.innerHTML = Math.round((temperature * 9)/5 +32);
+  let fahrenheitTemperature = (celsiusTemp * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
 function convertToCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temp");
-  let temperature = temperatureElement.innerHTML;
-  temperatureElement.innerHTML = Math.round((temperature - 32) * 5/9);
+  temperatureElement.innerHTML = celsiusTemp;
 }
+
+let celsiusTemp = null;
 
 let currentLocationButton = document.querySelector("#current-location-button");
 currentLocationButton.addEventListener("click", getCurrentLocation);
@@ -88,3 +92,5 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", convertToCelsius)
+
+searchCity("Boston");
