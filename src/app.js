@@ -26,7 +26,6 @@ function formatDate (timestamp) {
 }
 
 function displayWeather(response) {
-    console.log(response)
     let currentCity = document.querySelector("#city");
     let currentTemp = document.querySelector("#temp");
     let currentCond = document.querySelector("#conditions");
