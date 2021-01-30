@@ -54,4 +54,4 @@ function search(event){
 }
 
 let form = document.querySelector("#searchForm");
-form.addEventListener("submit", search)
+form.addEventListener("submit", search);
