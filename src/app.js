@@ -33,10 +33,10 @@ function displayWeather(response) {
     let currentWind = document.querySelector("#wind");
     let iconElement = document.querySelector("#icon");
 
-    let celsiusTemp = response.data.main.temp;
+    let celsiusTemp = Math.round(response.data.main.temp);
 
     currentCity.innerHTML = response.data.name; 
-    currentTemp.innerHTML = Math.round(celsiusTemp);
+    currentTemp.innerHTML = celsiusTemp;
     currentCond.innerHTML = response.data.weather[0].description;
     currentHumidity.innerHTML = response.data.main.humidity;
     currentWind.innerHTML = Math.round(response.data.wind.speed);
