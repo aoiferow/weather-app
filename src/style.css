@@ -11,6 +11,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+.city {
+}
 .weather-app {
   max-width: 600px;
   margin: 40px auto;
@@ -22,7 +24,7 @@ body {
 }
 h1 {
   font-size: 30px;
-  font-weight: 800px;
+  font-weight: 900px;
   line-height: 35px;
   margin-bottom: 0;
 }
