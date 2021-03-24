@@ -11,10 +11,9 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-.city {
-}
+
 .weather-app {
-  max-width: 600px;
+  max-width: 1500px;
   margin: 40px auto;
   padding: 20px;
   border: 2px solid #19456b;
@@ -23,10 +22,14 @@ body {
   opacity: 0.9;
 }
 h1 {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 900px;
   line-height: 35px;
   margin-bottom: 0;
+}
+
+h3 {
+  font-size: 20px;
 }
 ul {
   padding: 0;
