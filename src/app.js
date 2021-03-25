@@ -26,7 +26,6 @@ function formatDate (timestamp) {
 }
 
 function displayWeather(response) {
-  console.log (response)
     let currentCity = document.querySelector("#city");
     let currentTemp = document.querySelector("#temp");
     let currentCond = document.querySelector("#conditions");
@@ -45,11 +44,33 @@ function displayWeather(response) {
     iconElement.setAttribute ( "src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`) 
     iconElement.setAttribute ("alt", response.data.weather[0].description)
 }
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#futurecast");
+  let forecast = response.data.list[0];
+  console.log(response.data);
 
+  forecastElement.innerHTML = `
+  <div class="col-2">
+            <h3>
+                Sun
+            </h3>
+            <img 
+            src="https://openweathermap.org/img/wn/04d@2x.png" 
+            alt="">
+            <br>
+            <strong>${Math.round(response.data.list[0].main.temp_max)}°</strong>/${Math.round(response.data.list[0].main.temp_min)}°
+            </div> `
+}
+
+ 
 function searchCity(city){
     let apiKey = "26fb0e2935bcdd02eddacbda042238e7";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then(displayWeather);  
+
+    apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayForecast);  
+
 }
 function search(event){
     event.preventDefault();
@@ -96,4 +117,3 @@ let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", convertToCelsius)
 
 searchCity("Boston");
-
