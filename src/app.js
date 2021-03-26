@@ -27,6 +27,7 @@ function formatDate (timestamp) {
 
 function formatHours (timestamp) {
   let date = new Date (timestamp);
+
       let currentHour = date.getHours();
     if (currentHour < 10) {
     currentHour = `0${currentHour}`;
