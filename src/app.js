@@ -25,6 +25,19 @@ function formatDate (timestamp) {
   return formattedDate;
 }
 
+function formatHours (timestamp) {
+  let date = new Date (timestamp);
+      let currentHour = date.getHours();
+    if (currentHour < 10) {
+    currentHour = `0${currentHour}`;
+  }
+    let currentMinutes = date.getMinutes();
+    if (currentMinutes < 10) {
+    currentMinutes = `0${currentMinutes}`;
+  }
+  return `${hours}:${minutes}`
+}
+
 function displayWeather(response) {
     let currentCity = document.querySelector("#city");
     let currentTemp = document.querySelector("#temp");
@@ -52,13 +65,13 @@ function displayForecast(response) {
   forecastElement.innerHTML = `
   <div class="col-2">
             <h3>
-                Sun
+                ${formatHours(forecast.dt * 1000)}
             </h3>
             <img 
-            src="https://openweathermap.org/img/wn/04d@2x.png" 
+            src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" 
             alt="">
             <br>
-            <strong>${Math.round(response.data.list[0].main.temp_max)}°</strong>/${Math.round(response.data.list[0].main.temp_min)}°
+            <strong>${Math.round(forecast.main.temp_max)}°</strong>/${Math.round(forecast.main.temp_min)}°
             </div> `
 }
 
