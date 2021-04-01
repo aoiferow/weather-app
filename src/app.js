@@ -51,9 +51,10 @@ function displayWeather(response) {
 }
 function displayForecast(response) {
   let forecastElement = document.querySelector("#futurecast");
+  forecastElement.innerHTML = null;
   let forecast = null;
 
-  for (let index = 0; index < 5 ; index++) {
+  for (let index = 0; index < 6 ; index++) {
    forecast = response.data.list[index];
   forecastElement.innerHTML += `
   <div class="col-2">
