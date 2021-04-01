@@ -4,7 +4,6 @@ html {
 body {
   font-family: "Fraunces", serif;
   color: #19456b;
-  background-color: #abe9cd;
   background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);
   height: 100%;
   margin: 0;
@@ -13,13 +12,16 @@ body {
 }
 
 .weather-app {
-  max-width: 1500px;
+  max-width: 600px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 40px;
   border: 2px solid #19456b;
   border-radius: 5px;
-  background-color: #e0faff;
-  opacity: 0.9;
+  background: rgba(224, 250, 255, 0.3);
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.6);
 }
 h1 {
   font-size: 40px;
