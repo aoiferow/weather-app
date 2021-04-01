@@ -10,19 +10,10 @@ function formatDate (timestamp) {
     "Friday",
     "Saturday"
   ];
-
-    let currentHour = date.getHours();
-    if (currentHour < 10) {
-    currentHour = `0${currentHour}`;
-  }
-    let currentMinutes = date.getMinutes();
-    if (currentMinutes < 10) {
-    currentMinutes = `0${currentMinutes}`;
-  }
+  
     let currentDay = days[date.getDay()];
 
-  let formattedDate = `${currentDay} ${currentHour}:${currentMinutes}`;
-  return formattedDate;
+  return `${currentDay} ${formatHours(timestamp)}`;
 }
 
 function formatHours (timestamp) {
@@ -36,7 +27,7 @@ function formatHours (timestamp) {
     if (currentMinutes < 10) {
     currentMinutes = `0${currentMinutes}`;
   }
-  return `${hours}:${minutes}`
+  return `${currentHour}:${currentMinutes}`
 }
 
 function displayWeather(response) {
@@ -60,10 +51,11 @@ function displayWeather(response) {
 }
 function displayForecast(response) {
   let forecastElement = document.querySelector("#futurecast");
-  let forecast = response.data.list[0];
-  console.log(response.data);
+  let forecast = null;
 
-  forecastElement.innerHTML = `
+  for (let index = 0; index < 5 ; index++) {
+   forecast = response.data.list[index];
+  forecastElement.innerHTML += `
   <div class="col-2">
             <h3>
                 ${formatHours(forecast.dt * 1000)}
@@ -72,8 +64,13 @@ function displayForecast(response) {
             src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" 
             alt="">
             <br>
-            <strong>${Math.round(forecast.main.temp_max)}°</strong>${Math.round(forecast.main.temp_min)}°
-            </div> `
+            <strong>${Math.round(forecast.main.temp_max)}°</strong>
+            /${Math.round(forecast.main.temp_min)}°
+            </div>
+            </div>  `
+
+}
+            
 }
 
  
