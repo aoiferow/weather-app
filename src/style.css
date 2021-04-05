@@ -42,13 +42,9 @@ li {
   padding: 0;
   font-size: 20px;
 }
+
 li:first-letter {
   text-transform: capitalize;
-}
-.weather-temp i {
-  margin-bottom: 30px;
-  margin-right: 40px;
-  float: right;
 }
 
 .weather-temp strong {
@@ -60,3 +56,13 @@ li:first-letter {
   font-size: 20px;
   top: -16px;
 }
+
+.forecast .col-2 {
+  margin: 0 auto;
+  padding: 30px;
+  text-align: center;
+}
+/* .forecast i {
+  margin: 0 auto;
+  display: inline;
+} */

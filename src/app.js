@@ -60,15 +60,12 @@ function displayForecast(response) {
   
   <div class="col-2">
   
-            
+               <h3>
+                ${formatHours(forecast.dt * 1000)}
+           
             <img 
             src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" 
             alt="">
-            <br>
-            <h3>
-                ${formatHours(forecast.dt * 1000)}
-            </h3>
-            <h3>
             <strong>${Math.round(forecast.main.temp_max)}°c</strong>
             </h3>
             </div>
