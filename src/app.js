@@ -37,6 +37,9 @@ function displayWeather(response) {
     let currentHumidity = document.querySelector("#humidity");
     let currentWind = document.querySelector("#wind");
     let iconElement = document.querySelector("#icon");
+    let sunrise = document.querySelector("#sunrise");
+    let sunset = document.querySelector("#sunset");
+    let futureCity = document.querySelector("#future");
 
      celsiusTemp = response.data.main.temp;
 
@@ -45,14 +48,18 @@ function displayWeather(response) {
     currentCond.innerHTML = response.data.weather[0].description;
     currentHumidity.innerHTML = response.data.main.humidity;
     currentWind.innerHTML = Math.round(response.data.wind.speed);
-    timeDate.innerHTML = formatDate(response.data.dt * 1000).bold();
+    timeDate.innexrHTML = formatDate(response.data.dt * 1000).bold();
     iconElement.setAttribute ( "src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`) 
     iconElement.setAttribute ("alt", response.data.weather[0].description)
+    sunrise.innerHTML = formatHours(response.data.sys.sunrise * 1000);
+    sunset.innerHTML = formatHours(response.data.sys.sunset * 1000);
+    futureCity.innerHTML = response.data.name;
 }
 function displayForecast(response) {
   let forecastElement = document.querySelector("#futurecast");
   forecastElement.innerHTML = null;
   let forecast = null;
+
 
   for (let index = 0; index < 5 ; index++) {
    forecast = response.data.list[index];
