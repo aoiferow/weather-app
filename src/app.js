@@ -39,7 +39,7 @@ function displayWeather(response) {
     let iconElement = document.querySelector("#icon");
     let sunrise = document.querySelector("#sunrise");
     let sunset = document.querySelector("#sunset");
-    let futureCity = document.querySelector("#future");
+    
 
      celsiusTemp = response.data.main.temp;
 
@@ -53,24 +53,26 @@ function displayWeather(response) {
     iconElement.setAttribute ("alt", response.data.weather[0].description)
     sunrise.innerHTML = formatHours(response.data.sys.sunrise * 1000);
     sunset.innerHTML = formatHours(response.data.sys.sunset * 1000);
-    futureCity.innerHTML = response.data.name;
 }
+
 function displayForecast(response) {
   let forecastElement = document.querySelector("#futurecast");
   forecastElement.innerHTML = null;
   let forecast = null;
+  
 
 
   for (let index = 0; index < 5 ; index++) {
    forecast = response.data.list[index];
   forecastElement.innerHTML += `
   
-  <div class="col-2">
+  <div class="col-2 text-center">
   
                <h3>
                 ${formatHours(forecast.dt * 1000)}
            
             <img 
+            class="w-100"
             src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" 
             alt="">
             <strong>${Math.round(forecast.main.temp_max)}°c</strong>
@@ -135,5 +137,6 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", convertToCelsius)
+
 
 searchCity("Boston");
