@@ -141,8 +141,8 @@ function convertToCelsius(event) {
     let currentTemp = item.innerHTML;
     item.innerHTML = Math.round(((currentTemp - 32) * 5) / 9);
   });
-  celsiusLink.removeEventListener("click", changeToCelsius);
-  fahrenheitLink.addEventListener("click", changeTofahrenheit);
+  celsiusLink.removeEventListener("click", convertToCelsius);
+  fahrenheitLink.addEventListener("click", convertToFahrenheit);
 }
 
 let celsiusTemp = null; 
