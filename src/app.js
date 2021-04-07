@@ -40,15 +40,17 @@ function displayWeather(response) {
     let iconElement = document.querySelector("#icon");
     let sunrise = document.querySelector("#sunrise");
     let sunset = document.querySelector("#sunset");
-    let feelTemp = document.querySelector("#feelsLike")
+    let feelsTemp = document.querySelector("#feelsLike")
     console.log(response.data)
 
      celsiusTemp = response.data.main.temp;
+     feelsLike = response.data.main.feels_like;
+     minTemp = response.data.main.temp_min;
 
-    feelTemp.innerHTML = `<i>Feels Like ${Math.round(response.data.main.feels_like)}°</i>`;
+    feelsTemp.innerHTML = `Feels Like ${Math.round(feelsLike)}°c`;
     currentCity.innerHTML = response.data.name; 
     currentTemp.innerHTML = Math.round(celsiusTemp);
-    currentMinTemp.innerHTML = `Low of ${Math.round(response.data.main.temp_min)}`;
+    currentMinTemp.innerHTML = `Low of ${Math.round(minTemp)}°c`;
     currentCond.innerHTML = response.data.weather[0].description;
     currentHumidity.innerHTML = response.data.main.humidity;
     currentWind.innerHTML = Math.round(response.data.wind.speed);
@@ -77,9 +79,8 @@ function displayForecast(response) {
             class="w-100"
             src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" 
             alt="">
-            <span class="forecast-temp"><strong>${Math.round(forecast.main.temp_max)}</span>
-            °<span class="future-unit">c
-            </span>
+            <strong class="forecast-temp">${Math.round(forecast.main.temp_max)}</strong>°
+            
             </strong>
             </h3>
             </div>`
@@ -116,10 +117,14 @@ function getCurrentLocation(event) {
 function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temp");
+  let feelsElement = document.querySelector("#feelsLike");
+  let lowElement = document.querySelector("#minTemp");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   let fahrenheitTemperature = (celsiusTemp * 9) / 5 + 32;
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  feelsElement.innerHTML = `Feels Like ${Math.round((feelsLike * 9) / 5 + 32)}°f`;
+  lowElement.innerHTML = `Low of ${Math.round((minTemp * 9) / 5 + 32)}°f`;
   let forecastMax = document.querySelectorAll(".forecast-temp");
   forecastMax.forEach(function (item) {
     let currentTemp = item.innerHTML;
@@ -133,19 +138,26 @@ function convertToFahrenheit(event) {
 function convertToCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temp");
+  let feelsElement = document.querySelector("#feelsLike");
+  let lowElement = document.querySelector("#minTemp");
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
   temperatureElement.innerHTML = Math.round(celsiusTemp);
+  feelsElement.innerHTML = `Feels Like ${Math.round(celsiusTemp)}°c`;
+  lowElement.innerHTML = `Low of ${Math.round(minTemp)}°c`
   let forecastMax = document.querySelectorAll(".forecast-temp");
   forecastMax.forEach(function (item) {
     let currentTemp = item.innerHTML;
     item.innerHTML = Math.round(((currentTemp - 32) * 5) / 9);
   });
+
   celsiusLink.removeEventListener("click", convertToCelsius);
   fahrenheitLink.addEventListener("click", convertToFahrenheit);
 }
 
 let celsiusTemp = null; 
+let feelsLike = null;
+let minTemp = null;
 
 let currentLocationButton = document.querySelector("#current-location-button");
 currentLocationButton.addEventListener("click", getCurrentLocation);

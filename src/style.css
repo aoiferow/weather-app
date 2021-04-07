@@ -34,7 +34,7 @@ h2 {
   text-align: center;
 }
 h3 {
-    font-style: italic;
+  font-style: italic;
 
   font-size: 20px;
 }
@@ -66,4 +66,8 @@ li:first-letter {
   margin: 0 auto;
   padding-top: 20px;
   align-items: center;
+}
+
+.feelsLike {
+  font-style: italic;
 }
