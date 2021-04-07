@@ -33,18 +33,22 @@ function formatHours (timestamp) {
 function displayWeather(response) {
     let currentCity = document.querySelector("#city");
     let currentTemp = document.querySelector("#temp");
+    let currentMinTemp = document.querySelector("#minTemp");
     let currentCond = document.querySelector("#conditions");
     let currentHumidity = document.querySelector("#humidity");
     let currentWind = document.querySelector("#wind");
     let iconElement = document.querySelector("#icon");
     let sunrise = document.querySelector("#sunrise");
     let sunset = document.querySelector("#sunset");
-    
+    let feelTemp = document.querySelector("#feelsLike")
+    console.log(response.data)
 
      celsiusTemp = response.data.main.temp;
 
+    feelTemp.innerHTML = `<i>Feels Like ${Math.round(response.data.main.feels_like)}°</i>`;
     currentCity.innerHTML = response.data.name; 
     currentTemp.innerHTML = Math.round(celsiusTemp);
+    currentMinTemp.innerHTML = `Low of ${Math.round(response.data.main.temp_min)}`;
     currentCond.innerHTML = response.data.weather[0].description;
     currentHumidity.innerHTML = response.data.main.humidity;
     currentWind.innerHTML = Math.round(response.data.wind.speed);
@@ -59,14 +63,12 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#futurecast");
   forecastElement.innerHTML = null;
   let forecast = null;
-  
-
 
   for (let index = 0; index < 5 ; index++) {
    forecast = response.data.list[index];
   forecastElement.innerHTML += `
   
-  <div class="col-2 text-center">
+  <div id = "forecast" class="col-2 text-center">
   
                <h3>
                 ${formatHours(forecast.dt * 1000)}
@@ -75,13 +77,13 @@ function displayForecast(response) {
             class="w-100"
             src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" 
             alt="">
-            <strong>${Math.round(forecast.main.temp_max)}°c</strong>
+            <span class="forecast-temp"><strong>${Math.round(forecast.main.temp_max)}</span>
+            °<span class="future-unit">c
+            </span>
+            </strong>
             </h3>
-            </div>
-            </div>  `
-
-}
-            
+            </div>`
+  }         
 }
 
  
@@ -114,17 +116,36 @@ function getCurrentLocation(event) {
 function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temp");
-  let fahrenheitTemperature = ((celsiusTemp * 9) / 5 + 32);
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheitTemperature = (celsiusTemp * 9) / 5 + 32;
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  let forecastMax = document.querySelectorAll(".forecast-temp");
+  forecastMax.forEach(function (item) {
+    let currentTemp = item.innerHTML;
+    item.innerHTML = Math.round((currentTemp * 9) / 5 + 32);
+  });
+
+  celsiusLink.addEventListener("click", convertToCelsius);
+  fahrenheitLink.removeEventListener("click", convertToFahrenheit);
 }
 
 function convertToCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temp");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   temperatureElement.innerHTML = Math.round(celsiusTemp);
+  let forecastMax = document.querySelectorAll(".forecast-temp");
+  forecastMax.forEach(function (item) {
+    let currentTemp = item.innerHTML;
+    item.innerHTML = Math.round(((currentTemp - 32) * 5) / 9);
+  });
+  celsiusLink.removeEventListener("click", changeToCelsius);
+  fahrenheitLink.addEventListener("click", changeTofahrenheit);
 }
 
-let celsiusTemp = null;
+let celsiusTemp = null; 
 
 let currentLocationButton = document.querySelector("#current-location-button");
 currentLocationButton.addEventListener("click", getCurrentLocation);
@@ -140,3 +161,5 @@ celsiusLink.addEventListener("click", convertToCelsius)
 
 
 searchCity("Boston");
+
+
