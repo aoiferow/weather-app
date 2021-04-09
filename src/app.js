@@ -54,7 +54,7 @@ function displayWeather(response) {
     currentCond.innerHTML = response.data.weather[0].description;
     currentHumidity.innerHTML = response.data.main.humidity;
     currentWind.innerHTML = Math.round(response.data.wind.speed);
-    timeDate.innexrHTML = formatDate(response.data.dt * 1000).bold();
+    timeDate.innerHTML = formatDate(response.data.dt * 1000).bold();
     iconElement.setAttribute ( "src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`) 
     iconElement.setAttribute ("alt", response.data.weather[0].description)
     sunrise.innerHTML = formatHours(response.data.sys.sunrise * 1000);
@@ -107,6 +107,9 @@ function searchLocation(position) {
   let apiKey = "aed21243ee272b8cf9bddb7df0466769";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);  
 }
 
 function getCurrentLocation(event) {
